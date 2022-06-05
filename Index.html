@@ -1,0 +1,186 @@
+<!DOCTYPE>
+<html>
+<head>	 
+	<link rel="stylesheet" type="text/css"href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	 
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>	
+	<meta charset="UTF-8">
+
+	<style type="text/css">
+    body {
+	width: 600px;
+	font-size: 1.5em;
+	font color: #20B2AA;	
+	margin: 2em auto;
+	background-image: url("https://images.unsplash.com/photo-1633647517075-3bdafbc7b68c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80");}
+
+	#Nome{
+	display: block;
+	margin: 5px;
+	padding: 5px 5px;
+	width: 45%;
+	border-color: #20B2AA;
+	box-sizing: border-box;
+
+	}
+	#Nota1{
+	display: block;
+	margin: 5px;
+	padding: 5px 5px;
+	width: 30%;
+	border-color: #20B2AA;
+	box-sizing: border-box;
+
+	}
+	#Nota2{
+	display: block;
+	margin: 5px;
+	padding: 5px 5px;
+	width: 30%;
+	border-color: #20B2AA;
+	box-sizing: border-box;
+
+	}
+	#Nota3{
+	display: block;
+	margin: 5px;
+	padding: 5px 5px;
+	width: 30%;
+	border-color: #20B2AA;
+	box-sizing: border-box;
+
+	}
+	#inputPesquisa{	
+    width: 70%;
+    font-size: 16px;
+    padding: 5px 20px 5px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+	}
+	table {
+	width: 100%;
+	margin: 30px auto;
+	border: 1px solid;
+	text-align: center;
+	border-collapse: collapse;
+
+}
+	 thead {
+	background: #20B2AA;
+	color: white;}
+
+	 tbody {
+	background: #20B2AA;
+	color: white;}
+
+	 th, td{
+	 	margin: 30px auto;
+	border: 1px solid;}
+	fieldset{
+		width: 600px;
+		margin: 2em auto;
+		border-color: black
+
+
+	}
+
+}
+
+</style>
+	<title>Calculadora</title>
+</head>
+<body >
+	Nome do Aluno:
+	<input id="Nome" type="text" name="nome">
+	<br>
+	Nota 1:
+	<input id="Nota1" type="number" name="nota1">
+	<br>
+	Nota 2:
+	<input id="Nota2" type="number" name="nota2">
+	<br>
+	Nota 3:
+	<input id="Nota3" type="number" name="nota3">
+	<br>
+	<button onclick="EnviarDados()">Enviar</button>
+
+	<fieldset>
+		<input type="text" id="inputPesquisa" placeholder="Pesquise o nome dos alunos..." title="Digite um nome">
+		<table id="tabelinha">
+			<thead>		
+				<tr>
+					<td>Nome do Aluno</td>
+					<td>Nota 1</td>
+					<td>Nota 2</td>
+					<td>Nota 3</td>
+					<td>Média</td>
+					<td>Situação</td>			
+				</tr>
+			</thead>
+
+		</table>
+	</fieldset>
+
+	<script>
+
+	var number1;
+	var number2;
+	var number3;
+	var sit;
+	var media;
+	var n = 0;
+
+	function EnviarDados()
+	{
+		number1 = parseFloat(document.getElementById('Nota1').value);
+		number2 = parseFloat(document.getElementById('Nota2').value);
+		number3 = parseFloat(document.getElementById('Nota3').value);
+		media = ((number1 + number2 + number3)/3).toFixed(1);
+
+		n++;
+
+		if (media < 4)
+			sit = "Reprovado";
+		else if (media < 7)
+			sit = "Prova Final";
+		else
+			sit = "Aprovado";
+
+		InserirTabela();
+	}
+
+	function InserirTabela() {
+		var table = document.getElementById("tabelinha");
+		var row = table.insertRow(n);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		var cell5 = row.insertCell(4);
+		var cell6 = row.insertCell(5);
+		cell1.innerHTML = document.getElementById("Nome").value;
+		cell2.innerHTML = number1;
+		cell3.innerHTML = number2;
+		cell4.innerHTML = number3;
+		cell5.innerHTML = media;
+		cell6.innerHTML = sit;
+	}
+    
+    
+    </script>
+<script>
+	$('#inputPesquisa').keyup(function() {
+         var $colunas = $('#tabelinha tr');
+         var val = $.trim($(this).val()).toLowerCase();
+
+         $colunas.show().filter(function() {
+             var texto = $(this).text().toLowerCase();
+             return !~texto.indexOf(val);
+         }).hide();
+     });
+</script>
+
+</body>
+
+</html>
